@@ -17,6 +17,24 @@
 		AND b.kodeKategori = k.kodeKategori
 		limit $posisi, $batas"); 
 	$data=$db->get_dataset();
+
+// QUERY SEARCH
+	if (isset($_POST['search'])) {
+		// Jika terdapat kiriman POST "search", maka ..
+		$batas=10;	
+		if(empty($_GET["hal"])){
+		// Jika tidak ada GET[Halaman], maka ..
+		// PAGINATION: hal untuk halaman yang sedang berjalan, posisi untuk starting data pada halaman yang berjalan
+			$posisi=0;
+			$hal=1;
+		}else{
+			$hal=$_GET["hal"];
+			$posisi=($hal-1)*$batas;
+	}
+	
+
+		$db=new MySQL();
+		$db->connect();
 ?>
 
 <div class="row-fluid">
